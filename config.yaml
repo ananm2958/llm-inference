@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  api_keys:
+    - "sk-gateway-dev-key-1"
+
+providers:
+  - name: vllm-local
+    type: vllm
+    base_url: "http://localhost:11434/v1"  
+    models:
+      - "mistral"
+      - "llama3"
+    timeout_seconds: 60
+
+  - name: openai
+    type: openai
+    base_url: "https://api.openai.com/v1"
+    api_key: "${OPENAI_API_KEY}"
+    models:
+      - "gpt-4o"
+      - "gpt-3.5-turbo"
+    timeout_seconds: 30
+
+  
+routing:
+  default_policy:
+    provider_chain:
+      - "vllm-local"
+      - "openai"
+    strategy: "priority"
+
+telemetry:
+  otel_endpoint: "localhost:4317"
+
+database:
+  conn_str: "postgres://gateway:gateway@localhost:5432/llm_gateway"

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/yourorg/llm-gateway/internal/providers"
+	"github.com/ananm2958/llm-gateway/internal/providers"
 )
 
 type NormalizedRequest struct {

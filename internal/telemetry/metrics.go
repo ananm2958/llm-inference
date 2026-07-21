@@ -102,3 +102,9 @@ func RecordRequest(ctx context.Context, tenantID, model, provider, status, cache
 		))
 	}
 }
+
+func RecordCircuitBreakerState(ctx context.Context, provider string, state interface{ String() string }) {
+	value := int64(0)
+	if state.String() == "open" { value = 1 }
+	CircuitBreakerOpen.Record(ctx, value, metric.WithAttributes(AttrProvider(provider)))
+}

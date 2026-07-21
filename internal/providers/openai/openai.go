@@ -1,3 +1,5 @@
+package openai
+
 import (
 	"bytes"
 	"context"
@@ -10,7 +12,7 @@ import (
 	"github.com/ananm2958/llm-gateway/internal/providers"
 )
 
-type VLLMProvider struct {
+type OpenAIProvider struct {
 	name    string
 	baseURL string
 	apiKey  string
@@ -18,8 +20,8 @@ type VLLMProvider struct {
 	client  *http.Client
 }
 
-func New(name, baseURL, apiKey string, models []string, timeoutSecs int) *VLLMProvider {
-	return &VLLMProvider{
+func New(name, baseURL, apiKey string, models []string, timeoutSecs int) *OpenAIProvider {
+	return &OpenAIProvider{
 		name:    name,
 		baseURL: baseURL,
 		apiKey:  apiKey,
@@ -28,10 +30,10 @@ func New(name, baseURL, apiKey string, models []string, timeoutSecs int) *VLLMPr
 	}
 }
 
-func (p *VLLMProvider) Name() string              { return p.name }
-func (p *VLLMProvider) SupportedModels() []string { return p.models }
+func (p *OpenAIProvider) Name() string              { return p.name }
+func (p *OpenAIProvider) SupportedModels() []string { return p.models }
 
-func (p *VLLMProvider) Chat(ctx context.Context, req *providers.ChatRequest) (*providers.ChatResponse, error) {
+func (p *OpenAIProvider) Chat(ctx context.Context, req *providers.ChatRequest) (*providers.ChatResponse, error) {
 	body, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -64,7 +66,7 @@ func (p *VLLMProvider) Chat(ctx context.Context, req *providers.ChatRequest) (*p
 	return &chatResp, nil
 }
 
-func (p *VLLMProvider) ChatStream(ctx context.Context, req *providers.ChatRequest) (io.ReadCloser, error) {
+func (p *OpenAIProvider) ChatStream(ctx context.Context, req *providers.ChatRequest) (io.ReadCloser, error) {
 	req.Stream = true
 	body, _ := json.Marshal(req)
 
@@ -85,7 +87,7 @@ func (p *VLLMProvider) ChatStream(ctx context.Context, req *providers.ChatReques
 	return resp.Body, nil
 }
 
-func (p *VLLMProvider) Healthy(ctx context.Context) bool {
+func (p *OpenAIProvider) Healthy(ctx context.Context) bool {
 	req, _ := http.NewRequestWithContext(ctx, "GET", p.baseURL+"/models", nil)
 	resp, err := p.client.Do(req)
 	if err != nil {

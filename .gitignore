@@ -1,0 +1,5 @@
+gateway
+gateway.exe
+config.local.yaml
+.env
+coverage.out

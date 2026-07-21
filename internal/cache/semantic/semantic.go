@@ -7,7 +7,7 @@ import (
 
     "github.com/jackc/pgx/v5/pgxpool"
     "github.com/pgvector/pgvector-go"
-    "github.com/yourorg/llm-gateway/internal/providers"
+    "github.com/ananm2958/llm-gateway/internal/providers"
 )
 
 // SimilarityThreshold controls how close two prompts must be to count as a cache hit.
@@ -19,12 +19,8 @@ type Cache struct {
     pool *pgxpool.Pool
 }
 
-func New(ctx context.Context, connStr string) (*Cache, error) {
-    pool, err := pgxpool.New(ctx, connStr)
-    if err != nil {
-        return nil, err
-    }
-    return &Cache{pool: pool}, nil
+func New(pool *pgxpool.Pool) *Cache {
+    return &Cache{pool: pool}
 }
 
 // Get searches for a semantically similar cached response.

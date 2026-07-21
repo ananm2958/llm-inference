@@ -9,7 +9,7 @@ import (
 	"github.com/ananm2958/llm-gateway/internal/cache/exact"
 	"github.com/ananm2958/llm-gateway/internal/cache/keygen"
 	"github.com/ananm2958/llm-gateway/internal/cache/semantic"
-	"github.com/ananm2958/llm-gateway/internal/embedding"
+	"github.com/ananm2958/llm-gateway/internal/cache/embedding"
 	"github.com/ananm2958/llm-gateway/internal/providers"
 )
 

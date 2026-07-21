@@ -34,3 +34,12 @@ telemetry:
 
 database:
   conn_str: "postgres://gateway:gateway@localhost:5432/llm_gateway"
+
+redis:
+  addr: "localhost:6379"
+  password: ""
+  db: 0
+
+embedding:
+  base_url: "http://localhost:11434/v1"
+  model: "nomic-embed-text"

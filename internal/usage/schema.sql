@@ -34,7 +34,7 @@ CREATE TABLE semantic_cache (
     model           TEXT        NOT NULL,
     prompt_hash     TEXT        NOT NULL,
     prompt_text     TEXT        NOT NULL,
-    embedding       vector(1536),
+    embedding       vector(768),
     response_json   JSONB       NOT NULL,
     hit_count       INT         NOT NULL DEFAULT 0,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),

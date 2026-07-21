@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/yourorg/llm-gateway/internal/providers"
+	"github.com/ananm2958/llm-gateway/internal/providers"
 )
 
 const defaultTTL = 24 * time.Hour

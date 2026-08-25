@@ -277,6 +277,25 @@ The routing engine selects a provider chain per request based on the active poli
 
 Each provider is protected by a circuit breaker. After a configurable failure rate threshold is exceeded the circuit opens and that provider is skipped until it recovers.
 
+### Routing policy tests
+
+The routing tests use deterministic provider doubles and cover priority-policy
+fallback behavior:
+
+- `TestPriorityPolicyFallbackMaintainsSuccessRateAndCountsLLMCalls` verifies
+  that requests succeed through the fallback when the primary fails and records
+  the total number of LLM calls (one failed primary attempt plus one fallback
+  attempt per request).
+- `TestPriorityPolicyFallbackIncludesFailedAttemptInTailLatency` verifies that
+  p95 request latency includes the time spent on a failed primary call before
+  the fallback returns successfully.
+
+Run the focused routing test suite with:
+
+```bash
+go test ./internal/routing
+```
+
 ---
 
 ## Observability
